@@ -1,0 +1,45 @@
+name: Project 2 - Quality Gate
+
+on:
+  push:
+    paths:
+      - 'project-2-quality-gate/**'
+      - '.github/workflows/project2-quality-gate.yml'
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: pip install -r project-2-quality-gate/requirements.txt
+
+      - name: Run tests
+        run: pytest project-2-quality-gate/test_app.py
+
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: pip install -r project-2-quality-gate/requirements.txt
+
+      - name: Run lint
+        run: ruff check project-2-quality-gate/
