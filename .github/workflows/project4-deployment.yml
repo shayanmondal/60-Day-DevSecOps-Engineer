@@ -1,0 +1,57 @@
+name: Project 4 - End-to-End Deployment Pipeline
+
+on:
+  push:
+    paths:
+      - "project-4-deployment-pipeline/**"
+      - ".github/workflows/project4-deployment.yml"
+
+jobs:
+  test-and-lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+
+      - name: Run Tests
+        run: |
+          cd project-4-deployment-pipeline
+          pip install pytest
+          pytest test_app.py
+
+  build-image:
+    needs: test-and-lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Build Container Image
+        run: |
+          cd project-4-deployment-pipeline
+          docker build -t app-pipeline:${{ github.sha }} .
+
+      - name: Mock Vulnerability Scan
+        run: |
+          echo "Scanning image app-pipeline:${{ github.sha }} for vulnerabilities..."
+          echo "Result: 0 Critical, 0 High vulnerabilities found. Image safe."
+
+  deploy-staging:
+    needs: build-image
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Mock Staging Deployment
+        run: |
+          cd project-4-deployment-pipeline
+          echo "Pulling image tag: ${{ github.sha }}..."
+          echo "Starting container on Staging Environment..."
+          docker build -t app-pipeline:staging .
+          docker run --rm app-pipeline:staging
