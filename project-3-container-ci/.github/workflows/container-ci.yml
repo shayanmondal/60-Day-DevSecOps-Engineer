@@ -1,0 +1,23 @@
+name: Project 3 - Container CI
+
+on:
+  push:
+    paths:
+      - "project-3-container-ci/**"
+  pull_request:
+    paths:
+      - "project-3-container-ci/**"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Build Docker image
+        run: docker build -t project-3-container-ci:${{ github.sha }} ./project-3-container-ci
+
+      - name: Test Docker image
+        run: docker run --rm project-3-container-ci:${{ github.sha }}
