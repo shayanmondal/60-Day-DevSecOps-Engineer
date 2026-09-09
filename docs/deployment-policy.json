@@ -1,0 +1,12 @@
+{
+  "role": "deployment-role",
+  "permissions": [
+    "read-application-artifact",
+    "write-application-artifact"
+  ],
+  "denied": [
+    "delete-backup",
+    "change-network-settings",
+    "create-new-users"
+  ]
+}

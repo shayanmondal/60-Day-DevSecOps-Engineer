@@ -1,0 +1,25 @@
+IAM PERMISSION TEST
+
+Allowed action:
+Read application artifact
+Result: ALLOWED
+
+Allowed action:
+Write application artifact
+Result: ALLOWED
+
+Denied action:
+Delete backup
+Result: DENIED
+
+Denied action:
+Change network settings
+Result: DENIED
+
+Denied action:
+Create new users
+Result: DENIED
+
+Reason:
+The deployment role follows the least-privilege principle.
+It only receives permissions required for deployment.
