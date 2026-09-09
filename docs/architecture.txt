@@ -1,0 +1,27 @@
+PHASE 5 - SECURE CLOUD WEB APPLICATION ARCHITECTURE
+
+Internet
+   |
+   v
+Public Network
+   |
+   v
+Reverse Proxy
+   |
+   v
+Private Network
+   |
+   v
+Application
+   |
+   +---- Storage
+   |
+   +---- Backup
+
+Security:
+- Public access is limited to the reverse proxy.
+- The application is placed in the private network.
+- IAM follows least privilege.
+- Application artifacts are backed up.
+- Logs are used for monitoring.
+- Only minimal resources are used to control cost.

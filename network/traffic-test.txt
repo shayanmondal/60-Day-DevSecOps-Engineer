@@ -1,0 +1,11 @@
+TRAFFIC TEST
+
+Allowed:
+Internet -> Reverse Proxy -> Application
+
+Blocked:
+Internet -> Direct Application
+
+Reason:
+The application is in the private network and should not be directly
+accessible from the Internet.
